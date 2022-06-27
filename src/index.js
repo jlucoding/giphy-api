@@ -3,6 +3,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 
+
 $(document).ready(function() {
   $('#gifKeyword').click(function() {
     const keyword = $('#keyword').val();
@@ -16,17 +17,22 @@ $(document).ready(function() {
     request.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
         const response = JSON.parse(this.responseText);
-        getElements(response);
+        getElements(response, limit);
       } else if (this.readyState === 4 && this.status === 404) {
-        $('.showErrors').text(`Please enter another keyword.`)
+        $('.showErrors').text(`Please enter another keyword.`);
       }
-    }
+    };
 
     request.open("GET", url, true);
     request.send();
 
-    function getElements(response) {
-      $('.showGif').html(`<img `)
+    function getElements(response, limit) {
+      if (limit === 1) {
+        $('.showGif').html(`<a href=${response.data[0].url} target="_blank">${keyword} 1</a>`);
+      } else if (limit < 1) {
+        let limitArray = [];
+        limitArray.from({length: limit}.keys());
+      }
     }
 
   });
