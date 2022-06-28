@@ -13,6 +13,7 @@ $(document).ready(function() {
     $('#keyword').val("");
     $('#limit').val("");
 
+    let promise = new Promise(function(resolve, reject) {
     let request = new XMLHttpRequest();
     const url = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.API_KEY}&q=${keyword}&limit=${limit}`;
 
